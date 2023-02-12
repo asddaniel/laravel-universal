@@ -19,7 +19,7 @@ vous devez ensuite publier les migrations des 4 tables de base avec la commande 
 php artisan vendor:publish --tag="universal-migrations"
 
 ```
-ceci va copier les fichiers des migrtions dans le bon dossier
+ceci va copier les fichiers des migrqations dans le bon dossier
 
 
 
