@@ -1,74 +1,76 @@
 # universal model package
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/asddaniel/laravel-package-laravel-package-skeleton.svg?style=flat-square)](https://packagist.org/packages/asddaniel/laravel-package-laravel-package-skeleton)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/asddaniel/laravel-package-laravel-package-skeleton/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/asddaniel/laravel-package-laravel-package-skeleton/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/asddaniel/laravel-package-laravel-package-skeleton/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/asddaniel/laravel-package-laravel-package-skeleton/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/asddaniel/laravel-package-laravel-package-skeleton.svg?style=flat-square)](https://packagist.org/packages/asddaniel/laravel-package-laravel-package-skeleton)
+![laravel-universal](https://img.shields.io/badge/stable-v0.01-success)![universal meta model](https://img.shields.io/badge/asddaniel-universal-blue)
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+Universal est un package Package laravel permettant de gerer vos models sans liens avec les tables de la base de données, donc pas de gestion de migrtion à chue nouveu model crée
 
-## Support us
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/laravel-package-laravel-package-skeleton.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/laravel-package-laravel-package-skeleton)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
 ## Installation
 
-You can install the package via composer:
+vous pouvez installer ce package via composer:
 
 ```bash
-composer require asddaniel/laravel-package-laravel-package-skeleton
+composer require asddaniel/laravel-universal
 ```
-
-You can publish and run the migrations with:
+vous devez ensuite publier les migrations des 4 tables de base avec la commande suivante
 
 ```bash
-php artisan vendor:publish --tag="laravel-package-laravel-package-skeleton-migrations"
-php artisan migrate
+php artisan vendor:publish --tag="universal-migrations"
+
 ```
+ceci va copier les fichiers des migrtions dans le bon dossier
 
-You can publish the config file with:
 
-```bash
-php artisan vendor:publish --tag="laravel-package-laravel-package-skeleton-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="laravel-package-laravel-package-skeleton-views"
-```
 
 ## Usage
+pour crée un model universel vous devez lancer la commande suivante suivit du nom du model (l'exemple de Post ci-dessous)
+```php
+    php artisan make:universalmodel Post
+```
+ la commande va crée un nouveau model universel dans le dossier universalModels à l'interieur du dossier App.
+
+ ensuite il ne vous reste qu'à ouvrir le model et ajouter les attribut qui seront directement pris en compte dans la persistnce comme s'ils étaient des colonnes d'une table de meme nom
+en voici un exemple ci-dessous
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\UniversalModels;
+
+use Asddaniel\UniversalLaravel\universal\UniversalModel;
+
+class Post extends UniversalModel
+{
+    public $auteur;
+    public $content;
+}
+
+
+```
+## Usage
+pour lire les données il y a la méthode all et get
+```php
+$posts = Post::all();// liste tous les posts
+$post = Post::get(1);//récupere un post suivant son id
+Post::delete(1);//supprime un post suivant son id
+Post::update($array); // modifie un post avec un tableau associatif de chaque attribut avec sa valeur 
+Post::update(3, ["title"=>"mon titre", "content"=>"mon contenu"]);
+
+```
+pour enregistrer des nouvelles données 
 
 ```php
-$laravelPackageSkeleton = new Asddaniel\LaravelPackageSkeleton();
-echo $laravelPackageSkeleton->echoPhrase('Hello, Asddaniel!');
+Post::create(["title"=>"mon titre", "content"=>"contenu ajouté"]);
+
 ```
+on lie chaque attribut à sa valeur à travers le tableau associatif
 
-## Testing
-
-```bash
-composer test
-```
-
-## Changelog
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+contactez-nous pour voir comment contribuez u projet
 
 ## Security Vulnerabilities
 
@@ -81,4 +83,4 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+la License MIT  (MIT). voir [License File](LICENSE.md) pour plus d'information.

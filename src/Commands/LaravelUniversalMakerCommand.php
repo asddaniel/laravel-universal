@@ -35,7 +35,7 @@ final class LaravelUniversalMakerCommand extends Command
 
 
 
-        $this->comment('Universal model files created with success!');
+        $this->comment('Universal model  created with success!');
 
         return self::SUCCESS;
     }
